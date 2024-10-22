@@ -32,7 +32,7 @@ export default defineStackbitConfig({
           stableId: document.id,
           urlPath: document.urlPath,
           document,
-          isHomePage: urlPath === "/"
+          isHomePage: document.urlPath === "/"
         };
       })
       .filter(Boolean) as SiteMapEntry[];
