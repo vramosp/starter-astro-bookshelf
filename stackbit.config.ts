@@ -14,5 +14,5 @@ export default defineStackbitConfig({
             accessToken: process.env.CONTENTFUL_MANAGEMENT_TOKEN!
         }),
     ],
-    modelExtensions: [{ name: 'Book', type: 'page', urlPath: '/{slug}' }],
+    modelExtensions: [{ name: 'page', type: 'page', urlPath: '/{slug}' }],
 });
