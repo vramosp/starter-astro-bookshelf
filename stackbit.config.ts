@@ -15,7 +15,7 @@ export default defineStackbitConfig({
         }),
     ],
     modelExtensions: [
-    { name: "Books", type: "page", urlPath: "/books/{slug}" },
+    { name: "Book", type: "page", urlPath: "/books/{slug}" },
     { name: "Author", type: "page", urlPath: "/author/{slug}" }
   ]
 });
