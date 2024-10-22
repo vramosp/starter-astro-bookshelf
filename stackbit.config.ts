@@ -13,7 +13,7 @@ export default defineStackbitConfig({
             previewToken: process.env.CONTENTFUL_PREVIEW_TOKEN!,
             accessToken: process.env.CONTENTFUL_MANAGEMENT_TOKEN!
         }),
-    ],
-    modelExtensions: [{ name: 'page', type: 'page', urlPath: '/{slug}' }],
-    "postInstallCommand": "npm i --no-save @stackbit/types @stackbit/cms-contentful"
-})
+     }),
+  ],
+  modelExtensions: [{ name: 'page', type: 'page', urlPath: '/{slug}' }],
+};
