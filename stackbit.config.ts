@@ -15,4 +15,4 @@ export default defineStackbitConfig({
         }),
     ],
     modelExtensions: [{ name: 'Book', type: 'page', urlPath: '/{slug}' }],
-};
+});
