@@ -6,6 +6,7 @@ export default defineStackbitConfig({
     "stackbitVersion": "~0.6.0",
     "nodeVersion": "18",
     "ssgName": "astro",
+    postInstallCommand: 'npm i --no-save @stackbit/types @stackbit/cms-contentful',
     "contentSources": [
         new ContentfulContentSource({
             spaceId: process.env.CONTENTFUL_SPACE_ID!,
