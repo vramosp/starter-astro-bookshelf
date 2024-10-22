@@ -1,6 +1,10 @@
 import { ContentfulContentSource } from '@stackbit/cms-contentful';
 
-import { defineStackbitConfig } from '@stackbit/types';
+import {
+  defineStackbitConfig,
+  getLocalizedFieldForLocale,
+  SiteMapEntry
+} from "@stackbit/types";
 
 export default defineStackbitConfig({
     "stackbitVersion": "~0.6.0",
@@ -18,5 +22,22 @@ export default defineStackbitConfig({
     modelExtensions: [
     { name: "Book", type: "page", urlPath: "/books/{slug}" },
     { name: "Author", type: "page", urlPath: "/author/{slug}" }
-  ]
+  ],
+  siteMap: ({ documents, models }) => {
+    const pageModels = models.filter(m => m.type === "page").map(m => m.name);
+    return documents
+      .filter(d => pageModels.includes(d.modelName))
+      .map(document => {
+        const slug = getLocalizedFieldForLocale(document.fields.slug);
+        if (!slug.value) return null;
+        const urlPath = "/" + slug.value.replace(/^\/+/, "");
+        return {
+          stableId: document.id,
+          urlPath,
+          document,
+          isHomePage: urlPath === "/"
+        };
+      })
+      .filter(Boolean) as SiteMapEntry[];
+  }
 });
