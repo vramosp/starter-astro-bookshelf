@@ -30,9 +30,9 @@ export default defineStackbitConfig({
       .map(document => {
         return {
           stableId: document.id,
-          urlPath: document.urlPath,
+          urlPath: document.slug,
           document,
-          isHomePage: document.urlPath === "/"
+          isHomePage: document.slug === "/"
         };
       })
       .filter(Boolean) as SiteMapEntry[];
