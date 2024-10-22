@@ -28,12 +28,9 @@ export default defineStackbitConfig({
     return documents
       .filter(d => pageModels.includes(d.modelName))
       .map(document => {
-        const slug = getLocalizedFieldForLocale(document.fields.slug);
-        if (!slug.value) return null;
-        const urlPath = "/" + slug.value.replace(/^\/+/, "");
         return {
           stableId: document.id,
-          urlPath,
+          urlPath: document.urlPath,
           document,
           isHomePage: urlPath === "/"
         };
