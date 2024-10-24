@@ -1,6 +1,18 @@
 import { ContentfulContentSource } from "@stackbit/cms-contentful";
 
 import { defineStackbitConfig } from "@stackbit/types";
+import type { SiteMapEntry } from "@stackbit/types";
+
+const getUrlPath = (document) => {
+  switch (document.modelName) {
+    case "bookAuthor":
+      return `/author/${document.id}`;
+    case "bookReferencePage":
+      return `/books/${document.id}`;
+    default:
+      return `/`;
+  }
+};
 
 export default defineStackbitConfig({
   stackbitVersion: "~0.6.0",
@@ -17,7 +29,24 @@ export default defineStackbitConfig({
     }),
   ],
   modelExtensions: [
-    { name: "bookReferencePage", type: "page", urlPath: "/books/{slug}" },
-    { name: "bookAuthor", type: "page", urlPath: "/author/{slug}" },
+    {
+      name: "bookReferencePage",
+      type: "page",
+    },
+    { name: "bookAuthor", type: "page" },
   ],
+  siteMap: ({ documents }): SiteMapEntry[] => {
+    return documents
+      .filter((document) =>
+        ["bookAuthor", "bookReferencePage"].includes(document.modelName)
+      )
+      .map((document) => {
+        return {
+          stableId: document.id,
+          label: document.fields.title as unknown as "string",
+          urlPath: getUrlPath(document),
+          document: document,
+        };
+      });
+  },
 });
